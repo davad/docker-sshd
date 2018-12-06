@@ -1,0 +1,9 @@
+version: '3.3'
+services:
+    sshd:
+        build: .
+        ports:
+            - "2222:22"
+        environment:
+            - USERS=davad
+            - GITHUB=1
