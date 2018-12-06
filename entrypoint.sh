@@ -9,7 +9,7 @@ sed -i "s/#PasswordAuthentication.*/PasswordAuthentication no/" /etc/ssh/sshd_co
 
 # Create accounts for users and fetch keys
 if [ "$USERS" ]; then
-    echo $USERS
+    echo "Creating user ${USERS}"
     for i in "$USERS"; do
         addgroup -S $i && adduser -S $i -G $i
 
@@ -17,11 +17,10 @@ if [ "$USERS" ]; then
         usermod -p '*' $i
         passwd -u $i
         usermod -s '/bin/bash' $i
-        tail /etc/passwd
 
         HOME="/home/${i}"
         if [ -n "$GITHUB" ]; then
-            echo "Import keys"
+            echo "Importing keys from GitHub"
             mkdir -p "${HOME}/.ssh"
             wget -O - "https://github.com/${i}.keys" >> "${HOME}/.ssh/authorized_keys"
         fi
