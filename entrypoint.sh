@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 # Generate host keys if not present
 ssh-keygen -A
