@@ -10,8 +10,8 @@ sed -i "s/#PasswordAuthentication.*/PasswordAuthentication no/" /etc/ssh/sshd_co
 
 # Create accounts for users and fetch keys
 if [ "$USERS" ]; then
-    echo "Creating user ${USERS}"
-    for i in "$USERS"; do
+    for i in $USERS; do
+	echo "Creating user ${i}"
         addgroup -S $i && adduser -S $i -G $i
 
         # disable password access, unlock account, set shell
