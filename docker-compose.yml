@@ -5,5 +5,5 @@ services:
         ports:
             - "2222:22"
         environment:
-            - USERS=davad
-            - GITHUB=1
+            USERS: "davad"
+            GITHUB: 1
