@@ -23,8 +23,20 @@ if [ "$USERS" ]; then
         if [ -n "$GITHUB" ]; then
             echo "Importing keys from GitHub"
             mkdir -p "${HOME}/.ssh"
-            wget -O - "https://github.com/${i}.keys" >> "${HOME}/.ssh/authorized_keys"
+            curl "https://github.com/${i}.keys" >> "${HOME}/.ssh/authorized_keys"
         fi
+
+        if [ -n "$BITBUCKET" ]; then
+            if [ -z "$APP_PASSWORD" ]; then
+                echo "Need APP_PASSWORD to fetch keys from Bitbucket"
+            else
+                echo "Importing keys from Bitbucket"
+                mkdir -p "${HOME}/.ssh"
+                curl -u "${i}:${APP_PASSWORD}" https://api.bitbucket.org/2.0/users/${i}/ssh-keys | jq -r '.values[] | select(.type=="ssh_key") | .key' >> "${HOME}/.ssh/authorized_keys"
+            fi
+        fi
+        key_count=$(wc -l "${HOME}/.ssh/authorized_keys")
+        echo "Imported keys: ${key_count}"
     done
 fi
 
