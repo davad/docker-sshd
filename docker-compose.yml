@@ -7,3 +7,5 @@ services:
         environment:
             USERS: "davad"
             GITHUB: 1
+            BITBUCKET: 1
+            APP_PASSWORD: "12345"

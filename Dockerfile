@@ -3,7 +3,7 @@ LABEL maintainer="https://github.com/davad/docker-sshd"
 
 RUN apk update \
       && apk upgrade \
-      && apk add openssh python bash shadow \
+      && apk add openssh python bash shadow curl jq \
       && mkdir -p /root/.ssh \
       && rm -rf /var/cache/apk/* /tmp/*
 
